@@ -100,6 +100,80 @@ docker build -t my-nginx-image .
 
 ### 4 Создание образа WSGI-сервера на Python из Dockerfile
 
+Создать Dockerfile для образа WSGI-сервера на Python можно при помощи команды:
+
+```bash
+echo -e 'FROM python:3.9\nWORKDIR /app\nCOPY app.py /app\nRUN pip install flask\nCMD ["python", "app.py"]' > Dockerfile
+```
+
+Результат выполнения команды:
+
+![Создание и запуск контейнера с WSGI-сервером на Python](images/Screenshot-2024-12-19-03-35-32.png)
+
+Для сборки образа нужно использовать команду:
+
+```bash
+docker build --network="host" -t my-wsgi-image .
+```
+
+Результат выполнения команды:
+
+![Создание и запуск контейнера с WSGI-сервером на Python](images/Screenshot-2024-12-19-03-46-17.png)
+
 ### 5 Загрузка образов в Docker Hub
 
+Чтобы загрузить образы в Docker Hub, нужно сначала выполнить вход при помощи команды:
+
+```bash
+docker login
+```
+
+Для входа нужно перейти по URL и ввести одноразовый код для подтверждения:
+
+![Создание и запуск контейнера с WSGI-сервером на Python](images/Screenshot-2024-12-19-03-52-56.png)
+
+Для публикации образов на Docker Hub можно использовать команды:
+
+```bash
+docker tag my-nginx-image sstrawberrycheeks/my-nginx-image
+docker push sstrawberrycheeks/my-nginx-image
+```
+
+Результаты выполнения команды для образа my-nginx-image:
+
+![Создание и запуск контейнера с WSGI-сервером на Python](images/Screenshot-2024-12-19-03-57-43.png)
+
+```bash
+docker tag my-wsgi-image sstrawberrycheeks/my-wsgi-image
+docker push sstrawberrycheeks/my-wsgi-image
+```
+
+Результаты выполнения команды для образа my-wsgi-image:
+
+![Создание и запуск контейнера с WSGI-сервером на Python](images/Screenshot-2024-12-19-03-59-36.png)
+
+После этого опубликованные образы появятся в профиле:
+
+![Создание и запуск контейнера с WSGI-сервером на Python](images/Screenshot-2024-12-19-04-02-05.png)
+
 ### 6 Запуск Nginx и WSGI-сервера на Python при помощи `docker-compose`
+
+Чтобы создать файл docker-compose.yaml, нужно использовать команду:
+
+```bash
+echo -e "version: '3'\nservices:\n  nginx:\n    image: sstrawberrycheeks/my-nginx-image\n    ports:\n      - '8081:80'\n\n  wsgi:\n    image: sstrawberrycheeks/my-wsgi-image\n    ports:\n      - '8082:5000'" > docker-compose.yaml
+```
+
+Результат выполнения команды:
+
+![Создание и запуск контейнера с WSGI-сервером на Python](images/Screenshot-2024-12-19-04-09-05.png)
+
+Для запуска контейнеров можно использовать команду:
+
+```bash
+docker-compose up -d
+```
+
+Результат выполнения команды:
+
+![Создание и запуск контейнера с WSGI-сервером на Python](images/Screenshot-2024-12-19-04-14-33.png)

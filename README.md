@@ -86,7 +86,7 @@ COPY ./index.html /usr/share/nginx/html/index.html
 echo "<h1>Hello from Nginx!</h1>" > index.html
 ```
 
-![Создание и запуск контейнера с WSGI-сервером на Python](images/Screenshot-2024-12-19-03-00-46.png)
+![Создание образа Nginx из Dockerfile](images/Screenshot-2024-12-19-03-00-46.png)
 
 Собрать образ можно при помощи команды:
 
@@ -96,7 +96,7 @@ docker build -t my-nginx-image .
 
 Опция `-t` используется, чтобы задать образу имя и тег. Символ `.` указывает на контекст сборки — это означает, что при сборке будет использован Dockerfile из текущей директории.
 
-![Создание и запуск контейнера с WSGI-сервером на Python](images/Screenshot-2024-12-19-03-08-07.png)
+![Создание образа Nginx из Dockerfile](images/Screenshot-2024-12-19-03-08-07.png)
 
 ### 4 Создание образа WSGI-сервера на Python из Dockerfile
 
@@ -108,7 +108,7 @@ echo -e 'FROM python:3.9\nWORKDIR /app\nCOPY app.py /app\nRUN pip install flask\
 
 Результат выполнения команды:
 
-![Создание и запуск контейнера с WSGI-сервером на Python](images/Screenshot-2024-12-19-03-35-32.png)
+![Создание образа WSGI-сервера на Python из Dockerfile](images/Screenshot-2024-12-19-03-35-32.png)
 
 Для сборки образа нужно использовать команду:
 
@@ -118,7 +118,7 @@ docker build --network="host" -t my-wsgi-image .
 
 Результат выполнения команды:
 
-![Создание и запуск контейнера с WSGI-сервером на Python](images/Screenshot-2024-12-19-03-46-17.png)
+![Создание образа WSGI-сервера на Python из Dockerfile](images/Screenshot-2024-12-19-03-46-17.png)
 
 ### 5 Загрузка образов в Docker Hub
 
@@ -130,7 +130,7 @@ docker login
 
 Для входа нужно перейти по URL и ввести одноразовый код для подтверждения:
 
-![Создание и запуск контейнера с WSGI-сервером на Python](images/Screenshot-2024-12-19-03-52-56.png)
+![Загрузка образов в Docker Hub](images/Screenshot-2024-12-19-03-52-56.png)
 
 Для публикации образов на Docker Hub можно использовать команды:
 
@@ -141,7 +141,7 @@ docker push sstrawberrycheeks/my-nginx-image
 
 Результаты выполнения команды для образа my-nginx-image:
 
-![Создание и запуск контейнера с WSGI-сервером на Python](images/Screenshot-2024-12-19-03-57-43.png)
+![Загрузка образов в Docker Hub](images/Screenshot-2024-12-19-03-57-43.png)
 
 ```bash
 docker tag my-wsgi-image sstrawberrycheeks/my-wsgi-image
@@ -150,11 +150,11 @@ docker push sstrawberrycheeks/my-wsgi-image
 
 Результаты выполнения команды для образа my-wsgi-image:
 
-![Создание и запуск контейнера с WSGI-сервером на Python](images/Screenshot-2024-12-19-03-59-36.png)
+![Загрузка образов в Docker Hub](images/Screenshot-2024-12-19-03-59-36.png)
 
 После этого опубликованные образы появятся в профиле:
 
-![Создание и запуск контейнера с WSGI-сервером на Python](images/Screenshot-2024-12-19-04-02-05.png)
+![Загрузка образов в Docker Hub](images/Screenshot-2024-12-19-04-02-05.png)
 
 ### 6 Запуск Nginx и WSGI-сервера на Python при помощи `docker-compose`
 
@@ -166,7 +166,7 @@ echo -e "version: '3'\nservices:\n  nginx:\n    image: sstrawberrycheeks/my-ngin
 
 Результат выполнения команды:
 
-![Создание и запуск контейнера с WSGI-сервером на Python](images/Screenshot-2024-12-19-04-09-05.png)
+![Запуск Nginx и WSGI-сервера на Python при помощи docker-compose](images/Screenshot-2024-12-19-04-09-05.png)
 
 Для запуска контейнеров можно использовать команду:
 
@@ -176,4 +176,4 @@ docker-compose up -d
 
 Результат выполнения команды:
 
-![Создание и запуск контейнера с WSGI-сервером на Python](images/Screenshot-2024-12-19-04-14-33.png)
+![Запуск Nginx и WSGI-сервера на Python при помощи docker-compose](images/Screenshot-2024-12-19-04-14-33.png)
